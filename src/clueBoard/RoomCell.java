@@ -1,3 +1,4 @@
+package clueBoard;
 
 public class RoomCell extends BoardCell{
 	

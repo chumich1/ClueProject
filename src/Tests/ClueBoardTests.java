@@ -1,4 +1,6 @@
+package Tests;
 import static org.junit.Assert.*;
+
 
 
 import java.io.FileNotFoundException;
@@ -10,6 +12,10 @@ import junit.framework.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import clueBoard.BadConfigFormatException;
+import clueBoard.Board;
+import clueBoard.DoorDirection;
+import clueBoard.RoomCell;
 
 public class ClueBoardTests {
 	private static Board myBoard; 
@@ -25,7 +31,7 @@ public class ClueBoardTests {
 	
 	@Test
 	public void testNumRooms() {
-		Assert.assertEquals(11, myBoard.getRooms().size()); 	
+		Assert.assertEquals(NUM_ROOMS, myBoard.getRooms().size()); 	
 	}
 	
 	@Test

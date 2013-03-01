@@ -1,3 +1,4 @@
+package clueBoard;
 
 public enum DoorDirection {
 	UP ("U"), DOWN ("D"), LEFT ("L"), RIGHT ("R"), NONE ("N");

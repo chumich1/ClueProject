@@ -1,3 +1,4 @@
+package clueBoard;
 
 public abstract class BoardCell{
 	
