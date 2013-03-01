@@ -37,12 +37,10 @@ public class ClueBoardTests {
 	@Test
 	public void testRoomMap() {
 		Map<Character, String> rooms = myBoard.getRooms();
-		//System.out.println(myBoard.getRooms().get('C'));
-		//System.out.println(rooms.get('L'));
-		//Assert.assertEquals("Conservatory", rooms.get('C'));
+		Assert.assertEquals("Conservatory", rooms.get('C'));
 		Assert.assertEquals("Library", rooms.get('L'));
 		Assert.assertEquals("Closet", rooms.get('X'));
-		//Assert.assertEquals("Walkway", rooms.get('W'));
+		Assert.assertEquals("Walkway", rooms.get('W'));
 	}
 	
 	@Test

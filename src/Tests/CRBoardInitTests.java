@@ -32,9 +32,10 @@ public class CRBoardInitTests {
 	
 	@BeforeClass
 	public static void setUp() {
-		board = new Board();
+		board = new Board("ClueRooms.csv", "Legend.txt");
 		board.loadConfigFiles();
 	}
+	
 	@Test
 	public void testRooms() {
 		Map<Character, String> rooms = board.getRooms();
@@ -43,13 +44,13 @@ public class CRBoardInitTests {
 		assertEquals(NUM_ROOMS, rooms.size());
 		// Test retrieving a few from the hash, including the first
 		// and last in the file and a few others
-		//assertEquals("Conservatory", rooms.get('C'));
+		assertEquals("Conservatory", rooms.get('C'));
 		assertEquals("Ballroom", rooms.get('B'));
-		assertEquals("Billiard room", rooms.get('R'));
-		assertEquals("Dining room", rooms.get('D'));
-		//assertEquals("Walkway", rooms.get('W'));
+		assertEquals("Billiard Room", rooms.get('R'));
+		assertEquals("Dining Room", rooms.get('D'));
+		assertEquals("Walkway", rooms.get('W'));
 	}
-	
+
 	@Test
 	public void testBoardDimensions() {
 		// Ensure we have the proper number of rows and columns
@@ -129,7 +130,7 @@ public class CRBoardInitTests {
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file names
-		Board b = new Board("ClueLayoutBadColumns.csv", "ClueLegend.txt");
+		Board b = new Board("badBoard.csv", "badLegend.txt");
 		// You may change these calls if needed to match your function names
 		// My loadConfigFiles has a try/catch, so I can't call it directly to
 		// see test throwing the BadConfigFormatException
@@ -140,7 +141,7 @@ public class CRBoardInitTests {
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file name
-		Board b = new Board("ClueLayoutBadRoom.csv", "ClueLegend.txt");
+		Board b = new Board("badBoard.csv", "badLegend.txt");
 		b.loadLegend();
 		b.loadBoard();
 	}
@@ -148,8 +149,9 @@ public class CRBoardInitTests {
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoomFormat() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file name
-		Board b = new Board("ClueLayout.csv", "ClueLegendBadFormat.txt");
+		Board b = new Board("badBoard", "badFile.txt");
 		b.loadLegend();
 		b.loadBoard();
 	}
+
 }

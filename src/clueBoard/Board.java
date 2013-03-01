@@ -25,18 +25,17 @@ public class Board {
 
 	public void loadConfigFiles(){
 
-		try {
+		try{
 			loadLegend();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
 			loadBoard();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		catch (BadConfigFormatException e){
+			e.getMessage();
+		}
+		catch (FileNotFoundException e){
+			e.getMessage();
+		}
+		
 	}
 
 	public Board() {
@@ -87,9 +86,7 @@ public class Board {
 		String array[] = new String[23];
 		numRows = 0;
 		
-		for(int i = 0; i < array.length; i++) {
-			array[i] = new String();
-		}
+		
 		
 		while(in.hasNextLine()){
 			String line = in.nextLine();
@@ -122,8 +119,8 @@ public class Board {
 					}
 				}
 			}
-
-			rooms.put(array[0].charAt(0), array[1]);
+			//proably left over from copypasta
+			//rooms.put(array[0].charAt(0), array[1]);
 			numRows++;
 		}
 
