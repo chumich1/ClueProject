@@ -121,6 +121,9 @@ public class AdjacencyTests {
 			
 		}
 	
+	
+	//These test the targets for a walkway cell, given a number of turns. These do not enter door.
+	//These tests are colored NEON BLUE
 	@Test
 	public void walkwayTargets(){
 		
@@ -139,15 +142,88 @@ public class AdjacencyTests {
 		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(3, 5))));
 		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(4, 6))));
 		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(0, 4))));
-		Assert.assertEquals(4, targets.size());
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(1, 5))));
+		Assert.assertEquals(5, targets.size());
 		
 		
 		
 	}
 	
+	//These test targets that enter doors on their last move
+	//These tests are NEON PINK
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void fullDoorTargets(){
+		
+		myBoard.trackStart(myBoard.calcIndex(16, 5), 2);
+		Set<BoardCell> targets = myBoard.getTargets();
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(17, 4))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(18, 5))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(17, 6))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(16, 7))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(15, 4))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(14, 5))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(15, 6))));
+		Assert.assertEquals(7, targets.size());
+		
+		myBoard.trackStart(myBoard.calcIndex(4, 18), 2);
+		targets = myBoard.getTargets();
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(4, 20))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(2, 18))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(3, 19))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(5, 19))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(6, 18))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(5, 17))));
+		Assert.assertEquals(6, targets.size());
+		
+		//test door direction
+		myBoard.trackStart(myBoard.calcIndex(4, 4),1);
+		targets = myBoard.getTargets();
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(4, 3))));
+		
+		myBoard.trackStart(myBoard.calcIndex(5, 3),1);
+		targets = myBoard.getTargets();
+		Assert.assertFalse(targets.contains(myBoard.getCellAt(myBoard.calcIndex(4, 3))));
+		
+		
 	}
-
+	
+	//These test targets that could enter doors before the last turn
+	//These are SALMON PINK (A.K.A. "Really Ugly Pink")
+	@Test
+	public void shortDoorTargets(){
+		myBoard.trackStart(myBoard.calcIndex(6, 19), 3);
+		Set<BoardCell> targets = myBoard.getTargets();
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(7, 20))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(6, 22))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(3, 19))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(4, 20))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(4, 18))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(6, 16))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(5, 17))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(5, 19))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(6, 18))));
+		Assert.assertEquals(9, targets.size());
+	}
+	
+	
+	//These test targets leaving a room
+	//These are doors colored RED
+	@Test
+	public void testDoorExit(){
+		myBoard.trackStart(myBoard.calcIndex(4, 8), 2);
+		Set<BoardCell> targets = myBoard.getTargets();
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(5, 7))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(6, 8))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(5, 9))));
+		Assert.assertEquals(3, targets.size());
+		
+		myBoard.trackStart(myBoard.calcIndex(15, 18), 2);
+		targets = myBoard.getTargets();
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(15, 16))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(14, 17))));
+		Assert.assertTrue(targets.contains(myBoard.getCellAt(myBoard.calcIndex(16, 17))));
+		Assert.assertEquals(3, targets.size());
+	}
+	
+	
 }
