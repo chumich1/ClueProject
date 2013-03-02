@@ -1,3 +1,9 @@
+/*
+ * Authors:
+ * Julia Morin
+ * Andrew Chumich
+ */
+
 package clueBoard;
 
 import java.io.FileNotFoundException;
