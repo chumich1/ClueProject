@@ -113,6 +113,9 @@ public class Board {
 						case 'R':
 							cells.add(new RoomCell(array[i].charAt(0), DoorDirection.RIGHT));
 							break; 
+						default:
+							throw new BadConfigFormatException();
+							
 						}						
 					} else {
 						cells.add(new RoomCell(array[i].charAt(0), DoorDirection.NONE));
